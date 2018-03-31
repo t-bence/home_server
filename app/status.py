@@ -5,6 +5,7 @@ from subprocess import getoutput
 
 def get_system_data():
     data = []
+    board_type = getoutput('cat /sys/firmware/devicetree/base/model')
     try:
         LAN_download = getoutput('ifconfig | grep "RX packets"').split("\n")[0].split("(")[1].split(")")[0]
     except:
@@ -25,6 +26,7 @@ def get_system_data():
     percent_space = space[11]
     percent_cpu = getoutput("top -d 0.5 -b -n2 | grep 'Cpu(s)'|tail -n 1 | awk '{print $2 + $4}'")
 
+    data.append(('Board type', board_type))
     data.append(('LAN download', LAN_download))
     data.append(('CPU temperature', CPU_temp + ' &deg;C'))
     data.append(('CPU usage', percent_cpu + '%'))
