@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from app import app
 from flask import render_template, jsonify, request
-from .krisztinatrams import get_trams
+from .bkk_api import get_trams
 from .cinemas import get_screenings
 from .get_movie_list import get_films_and_series
 from .lenses import get_lenses
