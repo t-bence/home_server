@@ -11,7 +11,7 @@ def get_system_data():
     core_hertz = str(int(getoutput('vcgencmd measure_clock arm').split("=")[1])/1e6)
 
     data.append(('LAN download', LAN_download))
-    data.append(('CPU temperature', CPU_temp + ' C'))
+    data.append(('CPU temperature', CPU_temp + ' &deg;C'))
     data.append(('Core voltage', core_volts + ' V'))
     data.append(('Core frequency', core_hertz + ' MHz'))
     

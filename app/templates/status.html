@@ -20,7 +20,7 @@ Utolsó értékelés: {{markmyprofdata[1]}}</p>
     <tbody>
     {% for tuple in results %}
         <tr><td>{{tuple[0]}}</td>
-        <td>{{tuple[1]}}</td></tr>
+        <td>{{tuple[1]|safe}}</td></tr>
     {% endfor %}
     </tbody>
     </table>
