@@ -3,7 +3,7 @@ from app import app
 from flask import render_template, jsonify, request
 from .bkk_api import get_trams
 from .cinemas import get_screenings
-from .get_movie_list import get_films_and_series
+from .movie_list import get_films_and_series
 from .lenses import get_lenses
 from .status import get_mark_my_prof_data, get_system_data
 from .pollution import save_measurement
