@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% set active_page = "mozimusor" %}
+{% block content %}
+
+<style>
+th.cim { width: 70% !important; }
+</style>
+
+{% for cinema in cinemas %}
+<div class="row">
+<div class="col-sm-8 col-md-4">
+    <h1>{{cinema.name}}</h1>
+    {% if cinema.films %}
+    <table class="table table-hover table-striped">
+    <thead class="thead-inverse"><tr><th class="cim">Film címe</th><th>Kezdés:</th></tr></thead>
+    <tbody>
+        {%for film in cinema.films %}
+        <tr><td{% if film.past == True: %} class="danger"{%endif%}>{{film.title}}</td>
+        <td{% if film.past == True: %} class="danger"{%endif%}>{{film.times}}</td></tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    {% endif %}
+</div>
+</div>
+{% endfor %}
+    
+
+<div class="row">
+<div class="col-sm-8 col-md-4">
+    <span class="bg-info">Utolsó frissítés: {{lastupdate}}</span>
+</div>
+</div>
+
+
+{% endblock %}

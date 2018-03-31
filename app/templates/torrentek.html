@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% set active_page = "torrent" %}
+{% block content %}
+<iframe src="http://{% if request.host.endswith(':5000') %}{{ request.host[:-5] }}{% else %}{{ request.host }}{% endif %}:9091/transmission/web/" style="border: none; height: -webkit-fill-available; width: 100%;">
+</iframe>
+{% endblock %}

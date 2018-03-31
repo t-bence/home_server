@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% set active_page = "index" %}
+{% block content %}
+<h1>Filmek</h1>
+
+<ul>
+{% for film in filmlist %}
+<li>{{film}}</li>
+{% endfor %}
+</ul>
+
+
+<h1>Sorozatok</h1>
+<ul>
+{% for series in serieslist %}
+{% if series.seasons %}
+    <li><a data-toggle="collapse" href="#collapse{{loop.index0}}">{{ series.title }}</a></li>
+    <div id="collapse{{loop.index0}}" class="panel-collapse collapse">
+        <ul>
+            {% for season in series.seasons %}
+            <li>{{season}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% else %}
+    <li>{{ series.title }}</li>
+{% endif %}
+{% endfor %}
+</ul>
+{% endblock %}

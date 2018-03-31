@@ -1,0 +1,58 @@
+﻿{% set navigation_bar = [
+    ('/', 'index', 'Home'),
+    ('/kozlekedes', 'kozlekedes', 'Közlekedés'),
+    ('/mozimusor', 'mozimusor', 'Moziműsor'),
+    ('/objektiv', 'objektiv', 'Objektívek'),
+    ('/torrent', 'torrent', 'Torrentek'),
+    ('/status', 'status', 'Státusz')
+] -%}
+
+{% set active_page = active_page|default('index') -%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>{{title}}</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="/static/favicon.ico" rel="icon" type="image/x-icon" />
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand" href="index">PiCi</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+<!--        <li class="active"><a href="#">Moziműsor</a></li>
+        <li><a href="http://192.168.1.5:9091/transmission/web/">Letöltések</a></li>
+        <li><a href="https://ncore.cc/login.php?honnan=/torrents.php">nCore</a></li> 
+        <li><a href="http://bithumen.be/browse.php">Bithumen</a></li>
+        <li><a href="https://thepiratebay.org/">Piratebay</a></li> -->
+        {% for href, id, caption in navigation_bar %}
+        <li{% if id == active_page %} class="active"{% endif %}><a href="{{ href|e }}">{{ caption|e }}</a></li>
+{% endfor %}
+<!--        <li><a href="http://{% if request.host.endswith(':5000') %}{{ request.host[:-5] }}{% else %}{{ request.host }}{% endif %}:9091/transmission/web/">Letöltések</a></li> -->
+        <li><a href="https://ncore.cc/login.php?honnan=/torrents.php">nCore</a></li> 
+        <li><a href="http://bithumen.be/browse.php">Bithumen</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+
+{% block content %}{% endblock %}
+
+</div>
+
+</body>
+</html>

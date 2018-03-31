@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% set active_page = "objektiv" %}
+{% block content %}
+
+<style>
+th.cim { width: 70% !important; }
+</style>
+
+<div class="row">
+<div class="col-sm-8 col-md-4">
+    <h1>OptiCAM objektívek</h1>
+    {% if lenses %}
+    <table class="table table-hover table-striped">
+    <thead class="thead-inverse"><tr><th class="cim">Objektív neve</th><th>Ára:</th></tr></thead>
+    <tbody>
+        {%for lens in lenses %}
+        <tr{% if lens.new == True: %} class="danger"{%endif%}><td>{{lens.name}}</td>
+        <td>{{lens.price}} Ft</td></tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    {% endif %}
+</div>
+</div>
+    
+
+<div class="row">
+<div class="col-sm-8 col-md-4">
+    <span class="bg-info">Utolsó frissítés: {{lastupdate}}</span>
+</div>
+</div>
+
+
+{% endblock %}

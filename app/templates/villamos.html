@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% set active_page = "kozlekedes" %}
+{% block content %}
+<style>
+span.tramnumber {
+    font-weight: bold;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #ffdd60;
+}
+li.trams {
+    margin-bottom: 20px;
+}
+</style>
+
+<h1>Közlekedés</h1>
+
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    Megállók
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a href="../kozlekedes">Összes</a></li>
+    <li role="separator" class="divider"></li>
+  {% for line in lines: %}
+    <li><a href="../kozlekedes/{{loop.index0}}">{{ line[0] }}</a></li>
+  {% endfor %}
+  </ul>
+</div>
+
+{% for data in all_data %}
+<h2>{{ data.line[0] }}</h2>
+
+{% if data.arrivals: %}
+<ul>
+{% for tram in data.arrivals %}
+    <li class="trams"><span class="tramnumber">{{tram.number}}</span> érkezik {{tram.mins}} perc múlva és megy tovább {{tram.direction}} felé</li>
+{% endfor %}
+</ul>
+{% else %}
+<p>Nincs érkező villamos a közeljövőben.</p>
+{% endif %}
+
+{% endfor %}
+
+{% endblock %}
