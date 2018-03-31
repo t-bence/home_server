@@ -10,7 +10,6 @@ base_url = 'http://futar.bkk.hu/bkk-utvonaltervezo-api/ws/otp/api/where/arrivals
 def get_trams(tram_id=-1):
     data = []
     if tram_id == -1:
-        
         for jarat in jaratok:
             new = {}
             new['line'] = jarat
@@ -24,21 +23,20 @@ def get_trams(tram_id=-1):
 
 def parse_tram_data(BKK_id):
     url = base_url + BKK_id
-
-    response = urllib.request.urlopen(url)
+    try:
+        response = urllib.request.urlopen(url)
+    except: 
+        print("Error opening BKK API URL")
+        return []
     output = response.read().decode('utf-8')
-    #print output
     data = json.loads(output)
     
     to_mins = lambda t: int((t - data['currentTime']/1000.0)/60.0)
 
-    # print json.dumps(data, indent=4, sort_keys=True)
     trams = data['data']['entry']['stopTimes']
     
-    value = []
-    
+    value = []    
     for tram in trams:
-    
         if 'predictedArrivalTime' not in tram:
             continue
         
@@ -47,7 +45,6 @@ def parse_tram_data(BKK_id):
             continue
         
         direction = tram['stopHeadsign']
-        
         BKK_id = tram['tripId']
         id = data['data']['references']['trips'][BKK_id]['routeId']
         number = data['data']['references']['routes'][id]['shortName']
