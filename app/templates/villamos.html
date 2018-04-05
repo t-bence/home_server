@@ -9,8 +9,15 @@ span.tramnumber {
     padding: 5px;
     background-color: #ffdd60;
 }
+span.busnumber {
+    font-weight: bold;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: rgb(112, 185, 255);
+}
 li.trams {
-    margin-bottom: 20px;
+    margin-bottom: 1em;
 }
 </style>
 
@@ -36,7 +43,7 @@ li.trams {
 {% if data.arrivals: %}
 <ul>
 {% for tram in data.arrivals %}
-    <li class="trams"><span class="tramnumber">{{tram.number}}</span> érkezik {{tram.mins}} perc múlva és megy tovább {{tram.direction}} felé</li>
+    <li class="trams"><span class="{% if ('56' in tram.number) %} tramnumber {% else %} busnumber {% endif %}">{{tram.number}}</span> érkezik {{tram.mins}} perc múlva és megy tovább {{tram.direction}} felé</li>
 {% endfor %}
 </ul>
 {% else %}
