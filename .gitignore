@@ -1,7 +1,2 @@
-get_movie_list.pyc
-get_trams.pyc
-krisztinatrams.pyc
-lenses.pyc
-pollution.pyc
-status.pyc
-views.pyc
+*.pyc
+__pycache__

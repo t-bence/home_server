@@ -10,14 +10,14 @@
 from bs4 import BeautifulSoup
 import requests
 import re
-import simplepush_notify
+import pushover import Pushover
+import os
 import json
 import io
 import datetime
 
 LOCAL_ADDRESS = '/home/pi/flask/app/cronjobs/lenses.json'
 
-# website = "D:\\Documents\\projektek\\markmyprofessor-auto\\sajat.html"
 website = "http://www.opticam.hu/index.php?site=hasznalt"
 
 # functions
@@ -72,11 +72,19 @@ def get_lenses(web_address):
         
         if new_lenses:
             # notify through the app
-            simplepush_notify.notify(u'OptiCam', u'Új Pentax objektív')
+            po = Pushover(os.environ['PUSHOVER_API_KEY'])
+            po.user(os.environ['PUSHOVER_USER_KEY'])
+            msg = po.msg("Új használt Pentax objektív érhető el!")
+            msg.set("title", u"Új objektív!")
+            po.send(msg)
+            
+            
+            #simplepush_notify.notify(u'OptiCam', u'Új Pentax objektív')
             return True
 
     return False
 
 
 #main logic
-get_lenses(website)
+if __name__ == "__main__":
+    get_lenses(website)

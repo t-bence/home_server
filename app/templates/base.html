@@ -41,8 +41,9 @@
         <li{% if id == active_page %} class="active"{% endif %}><a href="{{ href|e }}">{{ caption|e }}</a></li>
 {% endfor %}
 <!--        <li><a href="http://{% if request.host.endswith(':5000') %}{{ request.host[:-5] }}{% else %}{{ request.host }}{% endif %}:9091/transmission/web/">Letöltések</a></li> -->
-        <li><a href="https://ncore.cc/login.php?honnan=/torrents.php">nCore</a></li> 
+        <li><a href="https://ncore.cc/login.php?honnan=/torrents.php">nCore</a></li>
         <li><a href="http://bithumen.be/browse.php">Bithumen</a></li>
+        <li><a href="http://{{request.host}}:8093/admin/">PiHole</a></li> 
       </ul>
     </div>
   </div>

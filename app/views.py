@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from app import app
 from flask import render_template, jsonify, request
-from flask_cache import Cache
-
 from .bkk_api import get_trams
 from .cinemas import get_screenings
 from .movie_list import get_films_and_series
@@ -10,12 +8,8 @@ from .lenses import get_lenses
 from .status import get_mark_my_prof_data, get_system_data
 from .pollution import save_measurement
 
-cache = Cache(app,config={'CACHE_TYPE': 'simple'})
-
-
 @app.route('/')
 @app.route('/index')
-@cache.cached(timeout=60)
 def index():
     filmlist, serieslist = get_films_and_series()
     return render_template('index.html', filmlist=filmlist, serieslist=serieslist, title=u'Filmek és sorozatok')
@@ -38,14 +32,12 @@ def villamos(tram_id):
                            title='Villamos', all_data=all_data, lines=lines)
                            
 @app.route('/mozimusor')
-@cache.cached(timeout=200)
 def mozimusor():
     cinemas, lastupdate = get_screenings()
     return render_template('mozimusor.html', 
                            title=u'Moziműsor', lastupdate=lastupdate, cinemas=cinemas)
                            
-@app.route('/objektiv')
-@cache.cached(timeout=200)  
+@app.route('/objektiv')  
 def objektivek():
     lenses, lastupdate = get_lenses()
     return render_template('objektiv.html', 
@@ -59,14 +51,13 @@ def status():
                            title=u'Státusz', markmyprofdata=markmyprofdata, results=systemdata)
                            
 @app.route('/torrent')
-@cache.cached(timeout=200)
 def torrentek():
     return render_template('torrentek.html', 
                            title=u'Torrentek')
                            
 @app.errorhandler(404)
-def page_not_found():
-    return render_template('404.html')
+def page_not_found(e):
+    return render_template('404.html'), 404
                            
 @app.route('/pollution')    
 def pollution_measurement():
