@@ -15,7 +15,7 @@ websites = {u'Tabán': 'http://tabanartmozi.hu/mozimusor', u'Puskin': 'http://pu
 
 def get_cinema_content(name):
     website = websites[name]
-    headers = {'user-agent': 'tx.infinity@gmail.com'}
+    headers = {'user-agent': ''}
     page = requests.get(website, headers=headers)
     # print page.status_code
     status_code = page.status_code
