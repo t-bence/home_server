@@ -10,7 +10,7 @@
 from bs4 import BeautifulSoup
 import requests
 import re
-import pushover import Pushover
+# import pushover import Pushover
 import os
 import json
 import io
@@ -72,11 +72,11 @@ def get_lenses(web_address):
         
         if new_lenses:
             # notify through the app
-            po = Pushover(os.environ['PUSHOVER_API_KEY'])
-            po.user(os.environ['PUSHOVER_USER_KEY'])
-            msg = po.msg("Új használt Pentax objektív érhető el!")
-            msg.set("title", u"Új objektív!")
-            po.send(msg)
+            #po = Pushover(os.environ['PUSHOVER_API_KEY'])
+            #po.user(os.environ['PUSHOVER_USER_KEY'])
+            #msg = po.msg("Új használt Pentax objektív érhető el!")
+            #msg.set("title", u"Új objektív!")
+            #po.send(msg)
             
             
             #simplepush_notify.notify(u'OptiCam', u'Új Pentax objektív')

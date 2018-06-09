@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import os
 
-series_root = u'/home/pi/hdd/sorozatok'
-films_root = u'/home/pi/hdd/filmek'
+series_root = u'/home/pi/hdd/media/sorozatok'
+films_root = u'/home/pi/hdd/media/filmek'
 
 def get_immediate_subdirectories(a_dir):
     files = [name for name in os.listdir(a_dir)

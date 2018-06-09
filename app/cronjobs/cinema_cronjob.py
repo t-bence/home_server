@@ -67,3 +67,8 @@ def get_screenings():
     
     with io.open('/home/pi/flask/app/cronjobs/cinema.json', 'w', encoding='utf-8') as f:
         f.write(json.dumps(data, ensure_ascii=False))
+        
+
+        
+if __name__ == "__main__":
+    get_screenings()

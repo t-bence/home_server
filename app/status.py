@@ -25,6 +25,7 @@ def get_system_data():
     free_space = space[10][0:-1] + ' ' + space[10][-1]
     percent_space = space[11]
     percent_cpu = getoutput("top -d 0.5 -b -n2 | grep 'Cpu(s)'|tail -n 1 | awk '{print $2 + $4}'")
+    hdd_temp = getoutput("sudo smartctl -a /dev/sda | grep 194 | awk '{print $10}'")
 
     data.append(('Board type', board_type))
     data.append(('LAN download', LAN_download))
@@ -41,12 +42,13 @@ def get_system_data():
     data.append(('Total HDD space', total_space))
     data.append(('Used HDD space', used_space + ' (' + percent_space + ')'))
     data.append(('Free HDD space', free_space))
+    data.append(('HDD temperature', hdd_temp + ' &deg;C'))
     
 
     return data
     
 def get_mark_my_prof_data():
-    file_path = '/home/pi/bin/markmyprofessor_ratings.txt'
+    file_path = '/home/pi/flask/app/cronjobs/markmyprofessor_ratings.txt'
     with open(file_path, 'r') as file:
         num_post = file.read()
     last_post = path.getmtime(file_path) # Unix timestamp
