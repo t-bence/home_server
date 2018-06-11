@@ -6,11 +6,11 @@
     ('/status', 'status', 'Státusz')
 ] -%}
 
-{% if request.remote_addr != "192.168.0.1" %}
+{% if request.remote_addr != "192.168.0.1" and request.remote_addr.startswith("192.168.0.") %}
     {% do navigation_bar.append(('/torrent', 'torrent', 'Torrentek')) %}
 {% endif %}
-    
 
+  
 {% set active_page = active_page|default('index') -%}
 <!DOCTYPE html>
 <html lang="en">
@@ -39,16 +39,18 @@
         {% for href, id, caption in navigation_bar %}
         <li{% if id == active_page %} class="active"{% endif %}><a href="{{ href|e }}">{{ caption|e }}</a></li>
 {% endfor %}
+
         <li><a href="https://ncore.cc/login.php?honnan=/torrents.php">nCore</a></li>
         <li><a href="http://bithumen.be/browse.php">Bithumen</a></li>
-        {% if request.remote_addr != "192.168.0.1" %}
+
+        {% if request.remote_addr != "192.168.0.1" and request.remote_addr.startswith("192.168.0.") %}
         <li><a href="http://{{request.host}}:8093/admin/">PiHole</a></li> 
         {% endif %}
       </ul>
     </div>
   </div>
 </nav>
- 
+
 <div class="container-fluid">
 
 {% block content %}{% endblock %}
