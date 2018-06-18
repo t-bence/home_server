@@ -13,12 +13,12 @@ def get_system_data():
         LAN_download = "0"
     CPU_temp = getoutput('vcgencmd measure_temp').split("=")[1].split("'")[0]
     # core_volts = getoutput('vcgencmd measure_volts core').split("=")[1][0:-3:]
-    core_hertz = str(int(getoutput('vcgencmd measure_clock arm').split("=")[1])/1e6)
+    core_hertz = str(int(float(getoutput('vcgencmd measure_clock arm').split("=")[1])/1e6))
     uptime = getoutput('uptime -s')
     kernel = getoutput('uname -r')
     hostname = getoutput('hostname')
     total_mem = str(round(int(getoutput('cat /proc/meminfo | grep "MemTotal" | egrep "[0-9.]{4,}" -o'))/1024))
-    free_mem = str(round(int(getoutput('cat /proc/meminfo | grep "MemFree" | egrep "[0-9.]{4,}" -o'))/1024))
+    # free_mem = str(round(int(getoutput('cat /proc/meminfo | grep "MemFree" | egrep "[0-9.]{4,}" -o'))/1024))
     avail_mem = str(round(int(getoutput('cat /proc/meminfo | grep "MemAvailable" | egrep "[0-9.]{4,}" -o'))/1024.0))
     space = getoutput('df -h /home/pi/hdd').split()
     total_space = space[8][0:-1] + ' ' + space[8][-1]
@@ -28,12 +28,12 @@ def get_system_data():
     percent_cpu = getoutput("top -d 0.5 -b -n2 | grep 'Cpu(s)'|tail -n 1 | awk '{print $2 + $4}'")
     hdd_temp = getoutput("sudo smartctl -a /dev/sda | grep 194 | awk '{print $10}'")
     net_available = (getoutput("ping -c 1 google.com | grep transmitted | awk '{print $4}'") == '1')
-    ping_speed = getoutput("ping -c 1 google.com | grep 'bytes from' | awk '{print $8}'")[5:] + ' ms'
 
 
     data.append(('Board type', board_type))
     data.append(('Online', 'true' if net_available else 'false'))
     if net_available:
+        ping_speed = getoutput("ping -c 1 google.com | grep 'bytes from' | awk '{print $8}'")[5:] + ' ms'
         data.append(('Ping response', ping_speed))
     data.append(('LAN download', LAN_download))
     data.append(('CPU temperature', CPU_temp + ' &deg;C'))
@@ -44,7 +44,7 @@ def get_system_data():
     data.append(('Kernel version', kernel))
     data.append(('Hostname', hostname))
     data.append(('Total memory', total_mem + ' M'))
-    data.append(('Free memory', free_mem + ' M'))
+    # data.append(('Free memory', free_mem + ' M'))
     data.append(('Available memory', avail_mem + ' M'))
     data.append(('Total HDD space', total_space))
     data.append(('Used HDD space', used_space + ' (' + percent_space + ')'))

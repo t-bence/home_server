@@ -9,6 +9,7 @@ from .status import get_mark_my_prof_data, get_system_data
 from .pollution import save_measurement
 from .temp_log import parse_temp_log
 
+
 @app.route('/')
 @app.route('/index')
 def index():
