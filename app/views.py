@@ -59,7 +59,7 @@ def torrentek():
 @app.route('/temperature')
 def homerseklet():
     date, temp, cpu = parse_temp_log('/home/pi/bin/temp.log')
-    return render_template('homerseklet.html', temp=temp, date=date, cpu=cpu)
+    return render_template('homerseklet.html', temp=temp, date=date, cpu=cpu, title=u'Hőmérséklet')
                            
 @app.errorhandler(404)
 def page_not_found(e):
