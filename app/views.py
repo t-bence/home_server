@@ -7,6 +7,7 @@ from .movie_list import get_films_and_series
 from .lenses import get_lenses
 from .status import get_mark_my_prof_data, get_system_data
 from .pollution import save_measurement
+from .temp_log import parse_temp_log
 
 @app.route('/')
 @app.route('/index')
@@ -54,6 +55,11 @@ def status():
 def torrentek():
     return render_template('torrentek.html', 
                            title=u'Torrentek')
+                           
+@app.route('/temperature')
+def homerseklet():
+    date, temp, cpu = parse_temp_log('/home/pi/bin/temp.log')
+    return render_template('homerseklet.html', temp=temp, date=date, cpu=cpu)
                            
 @app.errorhandler(404)
 def page_not_found(e):
