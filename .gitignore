@@ -3,3 +3,6 @@
 __pycache__/
 app/cronjobs/*.json
 app/cronjobs/markmyprofessor_ratings.txt
+*.json
+
+

@@ -18,7 +18,7 @@ def parse_temp_log(filename):
         temp.append(float(ll[1][:-2].strip()))
         cpu.append(float(ll[2].strip()))
 
-    return date, temp, cpu
+    return date[-300:], temp[-300:], cpu[-300:]
 
 def to_javascript_array(x):
     return '[' + ",".join(str(item) for item in x) + '];'
