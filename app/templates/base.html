@@ -1,14 +1,14 @@
 ﻿{% set navigation_bar = [
-    ('/', 'index', 'Filmek'),
-    ('/kozlekedes', 'kozlekedes', 'Közlekedés'),
-    ('/mozimusor', 'mozimusor', 'Moziműsor'),
-    ('/objektiv', 'objektiv', 'Objektívek'),
-    ('/status', 'status', 'Státusz'),
-    ('/temperature', 'homerseklet', 'Hőmérséklet')
+    ('index', 'index', 'Filmek'),
+    ('kozlekedes', 'kozlekedes', 'Közlekedés'),
+    ('mozimusor', 'mozimusor', 'Moziműsor'),
+    ('objektiv', 'objektiv', 'Objektívek'),
+    ('status', 'status', 'Státusz'),
+    ('temperature', 'homerseklet', 'Hőmérséklet')
 ] -%}
 
 {% if request.remote_addr != "192.168.0.1" and request.remote_addr.startswith("192.168.0.") %}
-    {% do navigation_bar.append(('/torrent', 'torrent', 'Torrentek')) %}
+    {% do navigation_bar.append(('torrent', 'torrent', 'Torrentek')) %}
 {% endif %}
 
   
@@ -19,10 +19,10 @@
 <title>{{title}}</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/static/bootstrap.min.css">
-<script src="/static/jquery.min.js"></script>
-<script src="/static/bootstrap.min.js"></script>
-<link href="/static/favicon.ico" rel="icon" type="image/x-icon" />
+<link rel="stylesheet" href="static/bootstrap.min.css">
+<script src="static/jquery.min.js"></script>
+<script src="static/bootstrap.min.js"></script>
+<link href="static/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -42,7 +42,7 @@
 {% endfor %}
 
         {% if request.remote_addr != "192.168.0.1" and request.remote_addr.startswith("192.168.0.") %}
-        <li><a href="http://{{request.host}}:8093/admin/">PiHole</a></li> 
+        <!-- <li><a href="http://{{request.host}}:8093/admin/">PiHole</a></li> -->
         {% endif %}
       </ul>
     </div>

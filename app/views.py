@@ -5,7 +5,7 @@ from .bkk_api import get_trams
 from .cinemas import get_screenings
 from .movie_list import get_films_and_series
 from .lenses import get_lenses
-from .status import get_mark_my_prof_data, get_system_data
+from .status import get_system_data
 from .pollution import save_measurement
 from .temp_log import parse_temp_log
 
@@ -23,7 +23,7 @@ def jaratok():
     return render_template('villamos.html', 
                            title='Villamos', all_data=all_data, lines=lines)
                            
-@app.route('/kozlekedes/<int:tram_id>')
+@app.route('/kozlekedes-<int:tram_id>')
 def villamos(tram_id):
     try:
         all_data, lines = get_trams(tram_id)
@@ -47,15 +47,14 @@ def objektivek():
 
 @app.route('/status')    
 def status():
-    markmyprofdata = get_mark_my_prof_data()
     systemdata = get_system_data()
     return render_template('status.html', 
-                           title=u'Státusz', markmyprofdata=markmyprofdata, results=systemdata)
+                           title=u'Státusz', results=systemdata)
                            
-@app.route('/torrent')
-def torrentek():
-    return render_template('torrentek.html', 
-                           title=u'Torrentek')
+#@app.route('/torrent')
+#def torrentek():
+#    return render_template('torrentek.html', 
+#                           title=u'Torrentek')
                            
 @app.route('/temperature')
 def homerseklet():

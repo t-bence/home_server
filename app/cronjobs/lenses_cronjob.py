@@ -16,7 +16,7 @@ import json
 import io
 import datetime
 
-LOCAL_ADDRESS = '/home/pi/flask/app/cronjobs/lenses.json'
+LOCAL_ADDRESS = '/var/www/pici/app/cronjobs/lenses.json'
 
 website = "http://www.opticam.hu/index.php?site=hasznalt"
 
@@ -31,7 +31,7 @@ def get_lenses(web_address):
     if int(status_code) == 200:
         soup = BeautifulSoup(page.content, 'html.parser')
 
-        pentax = soup.find('span', class_='hasznalt', text=re.compile('Pentax'))
+        pentax = soup.find('span', class_='hasznalt', text=re.compile('Canon'))
         p = pentax.parent.find_next_sibling('p')
 
         lenses = p.find_all('span', class_='kerdes')

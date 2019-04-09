@@ -29,10 +29,10 @@ li.trams {
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="../kozlekedes">Összes</a></li>
+    <li><a href="./kozlekedes">Összes</a></li>
     <li role="separator" class="divider"></li>
   {% for line in lines: %}
-    <li><a href="../kozlekedes/{{loop.index0}}">{{ line[0] }}</a></li>
+    <li><a href="./kozlekedes-{{loop.index0}}">{{ line[0] }}</a></li>
   {% endfor %}
   </ul>
 </div>

@@ -1,7 +1,7 @@
 import json
 
 def get_lenses():
-    with open('/home/pi/flask/app/cronjobs/lenses.json') as json_file:  
+    with open('/var/www/pici/app/cronjobs/lenses.json', encoding='latin-1') as json_file:  
         content = json.load(json_file)
         
     lenses = content['data']

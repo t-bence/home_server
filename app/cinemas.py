@@ -4,7 +4,7 @@ import datetime as dt
 from math import floor
 
 def get_screenings():
-    with open('/home/pi/flask/app/cronjobs/cinema.json', encoding='utf-8') as json_file:  
+    with open('/var/www/pici/app/cronjobs/cinema.json', encoding='utf-8') as json_file:  
         content = json.load(json_file)
         
     cinemas = []

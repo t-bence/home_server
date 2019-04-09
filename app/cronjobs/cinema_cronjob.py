@@ -65,7 +65,7 @@ def get_screenings():
     
     data = {'lastupdate': lastupdate, 'data': list}
     
-    with io.open('/home/pi/flask/app/cronjobs/cinema.json', 'w', encoding='utf-8') as f:
+    with io.open('/var/www/pici/app/cronjobs/cinema.json', 'w', encoding='utf-8') as f:
         f.write(json.dumps(data, ensure_ascii=False))
         
 
