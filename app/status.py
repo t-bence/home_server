@@ -35,7 +35,7 @@ def get_system_data():
 
 
     ################
-    ram_free = int(int(getoutput('cat /proc/meminfo | grep "MemFree" | egrep "[0-9.]{4,}" -o'))/1024)
+    ram_free = int(int(getoutput('cat /proc/meminfo | grep "MemAvailable" | egrep "[0-9.]{4,}" -o'))/1024)
     ram_gpu = int(getoutput('cat /boot/config.txt | grep "gpu_mem"')[8:])
     ram_total = int(int(getoutput('cat /proc/meminfo | grep "MemTotal" | egrep "[0-9.]{4,}" -o'))/1024)
     ram_total = ram_gpu + ram_total
