@@ -7,7 +7,7 @@ def get_state():
     # ping = getoutput('ping -c 1 8.8.8.8 | grep \'bytes from\' | awk \'{print $7 " " $8}\' | cut -d= -f2')
     hdd_usage = getoutput('df -h /home/pi/media | grep \'/dev/sda2\' | awk \'{print $5}\'')[:-1]
 
-    cpu_percent = 15
+    cpu_percent = getoutput('tail -1 /home/pi/bin/temp.log | awk \'{print $3}\'')
 
     totalmem = 1024
     free_mem = round(int(getoutput('cat /proc/meminfo | grep "MemAvailable" | egrep "[0-9.]{4,}" -o'))/1024.0/totalmem*100)
