@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% set active_page = "index" %}
 {% block content %}
-<h1>Filmek</h1>
+<h2 class="h4">Filmek</h2>
 
 <ul>
 {% for film in filmlist %}
@@ -10,7 +10,7 @@
 </ul>
 
 
-<h1>Sorozatok</h1>
+<h2 class="h4">Sorozatok</h2>
 <ul>
 {% for series in serieslist %}
 {% if series.seasons %}

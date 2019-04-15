@@ -21,7 +21,7 @@ li.trams {
 }
 </style>
 
-<h1>Közlekedés</h1>
+<h2 class="h4">Közlekedés</h2>
 
 <div class="dropdown">
   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -38,12 +38,12 @@ li.trams {
 </div>
 
 {% for data in all_data %}
-<h2>{{ data.line[0] }}</h2>
+<h3 class="h5">{{ data.line[0] }}</h3>
 
 {% if data.arrivals: %}
 <ul>
 {% for tram in data.arrivals %}
-    <li class="trams"><span class="{% if ('56' in tram.number) %} tramnumber {% else %} busnumber {% endif %}">{{tram.number}}</span> érkezik {{tram.mins}} perc múlva és megy tovább {{tram.direction}} felé</li>
+    <li class="trams"><span style="color: black !important;" class="{% if ('56' in tram.number) %} tramnumber {% else %} busnumber {% endif %}">{{tram.number}}</span> érkezik {{tram.mins}} perc múlva és megy tovább {{tram.direction}} felé</li>
 {% endfor %}
 </ul>
 {% else %}

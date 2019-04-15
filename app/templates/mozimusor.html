@@ -8,8 +8,8 @@ th.cim { width: 70% !important; }
 
 {% for cinema in cinemas %}
 <div class="row">
-<div class="col-sm-8 col-md-4">
-    <h1>{{cinema.name}}</h1>
+<div class="col-sm-8 col-md-6">
+    <h2 class="h4">{{cinema.name}}</h2>
     {% if cinema.films %}
     <table class="table table-hover table-striped">
     <thead class="thead-inverse"><tr><th class="cim">Film címe</th><th>Kezdés:</th></tr></thead>

@@ -3,6 +3,10 @@ from datetime import datetime
 from subprocess import getoutput
 
 
+
+# ping -c 1 8.8.8.8 | grep 'bytes from' | awk '{print $7 " " $8}' | cut -d= -f2
+
+
 def get_system_data():
     data = []
     board_type = getoutput('cat /sys/firmware/devicetree/base/model')
@@ -14,42 +18,37 @@ def get_system_data():
     #CPU_temp = getoutput('vcgencmd measure_temp').split("=")[1].split("'")[0]
     # core_volts = getoutput('vcgencmd measure_volts core').split("=")[1][0:-3:]
     # core_hertz = str(int(float(getoutput('vcgencmd measure_clock arm').split("=")[1])/1e6))
-    uptime = getoutput('uptime -s')
-    kernel = getoutput('uname -r')
-    hostname = getoutput('hostname')
-    total_mem = str(round(int(getoutput('cat /proc/meminfo | grep "MemTotal" | egrep "[0-9.]{4,}" -o'))/1024))
+    #uptime = getoutput('uptime -s')
+    #kernel = getoutput('uname -r')
+    #hostname = getoutput('hostname')
+    #total_mem = str(round(int(getoutput('cat /proc/meminfo | grep "MemTotal" | egrep "[0-9.]{4,}" -o'))/1024))
     # free_mem = str(round(int(getoutput('cat /proc/meminfo | grep "MemFree" | egrep "[0-9.]{4,}" -o'))/1024))
-    avail_mem = str(round(int(getoutput('cat /proc/meminfo | grep "MemAvailable" | egrep "[0-9.]{4,}" -o'))/1024.0))
+    #avail_mem = str(round(int(getoutput('cat /proc/meminfo | grep "MemAvailable" | egrep "[0-9.]{4,}" -o'))/1024.0))
     space = getoutput('df -h /home/pi/media').split()
     total_space = space[8][0:-1] + ' ' + space[8][-1]
     used_space = space[9][0:-1] + ' ' + space[9][-1]
     free_space = space[10][0:-1] + ' ' + space[10][-1]
     percent_space = space[11]
-    percent_cpu = getoutput("top -d 0.5 -b -n2 | grep 'Cpu(s)'|tail -n 1 | awk '{print $2 + $4}'")
+    percent_cpu = '14' #getoutput("top -d 0.5 -b -n2 | grep 'Cpu(s)'|tail -n 1 | awk '{print $2 + $4}'")
     # hdd_temp = getoutput("sudo smartctl -a /dev/sda | grep 194 | awk '{print $10}'")
-    net_available = (getoutput("ping -c 1 google.com | grep transmitted | awk '{print $4}'") == '1')
+    #net_available = (getoutput("ping -c 1 google.com | grep transmitted | awk '{print $4}'") == '1')
 
 
-    data.append(('Board type', board_type))
-    data.append(('Online', 'true' if net_available else 'false'))
-    if net_available:
-        ping_speed = getoutput("ping -c 1 google.com | grep 'bytes from' | awk '{print $8}'")[5:] + ' ms'
-        data.append(('Ping response', ping_speed))
-    data.append(('LAN download', LAN_download))
-    #data.append(('CPU temperature', CPU_temp + ' &deg;C'))
-    data.append(('CPU usage', percent_cpu + '%'))
-    # data.append(('Core voltage', core_volts + ' V'))
-    # data.append(('Core frequency', core_hertz + ' MHz'))
-    data.append(('Running since', uptime))
-    data.append(('Kernel version', kernel))
-    data.append(('Hostname', hostname))
-    data.append(('Total memory', total_mem + ' M'))
-    # data.append(('Free memory', free_mem + ' M'))
-    data.append(('Available memory', avail_mem + ' M'))
-    data.append(('Total HDD space', total_space))
-    data.append(('Used HDD space', used_space + ' (' + percent_space + ')'))
-    data.append(('Free HDD space', free_space))
-    # data.append(('HDD temperature', hdd_temp + ' &deg;C'))
+    ################
+    ram_free = int(int(getoutput('cat /proc/meminfo | grep "MemFree" | egrep "[0-9.]{4,}" -o'))/1024)
+    ram_gpu = int(getoutput('cat /boot/config.txt | grep "gpu_mem"')[8:])
+    ram_total = int(int(getoutput('cat /proc/meminfo | grep "MemTotal" | egrep "[0-9.]{4,}" -o'))/1024)
+    ram_total = ram_gpu + ram_total
+    ram_used = ram_total - ram_free - ram_gpu
+
+    hdd = getoutput('df -BG /home/pi/media | grep /home/pi/media | awk \'{print $3 " " $4}\'')
+    [hdd_used, hdd_free] = [int(size[:-1]) for size in hdd.split()]
+
+    data = []
+    ram = {'used': ram_used, 'free': ram_free, 'gpu': ram_gpu}
+    hdd = {'used': hdd_used, 'free': hdd_free}
+    data = {'ram': ram, 'hdd': hdd}
+    
     
 
     return data
