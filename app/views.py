@@ -51,14 +51,10 @@ def objektivek():
 @app.route('/status')    
 def status():
     systemdata = get_system_data()
-    return render_template('status.html', 
-                           title=u'Státusz', state=state, data=systemdata)
-                
-@app.route('/temperature')
-def homerseklet():
     date, temp, cpu = parse_temp_log('/home/pi/bin/temp.log')
-    return render_template('homerseklet.html', state=state, temp=temp, date=date, cpu=cpu, title=u'Hőmérséklet')
-                           
+    return render_template('status.html', 
+                           title=u'Státusz', state=state, data=systemdata, date=date, temp=temp, cpu=cpu)
+                
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html', state=state), 404

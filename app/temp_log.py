@@ -18,11 +18,11 @@ def parse_temp_log(filename):
         temp.append(float(ll[1][:-2].strip()))
         cpu.append(float(ll[2].strip()))
 
-    return date[-300:], temp[-300:], cpu[-300:]
+    return to_string_array(date[-200:]), to_num_array(temp[-200:]), to_num_array(cpu[-200:])
 
-def to_javascript_array(x):
-    return '[' + ",".join(str(item) for item in x) + '];'
+def to_num_array(x):
+    return ",".join(str(item) for item in x)
 
-if __name__ == "__main__":
-    result = parse_temp_log('temp.log')
+def to_string_array(x):
+    return ", ".join('new Date("' + (str(item) + '").toLocaleString()') for item in x)
 
