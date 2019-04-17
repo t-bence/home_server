@@ -7,7 +7,6 @@ from .movie_list import get_films_and_series
 from .lenses import get_lenses
 from .status import get_system_data
 from .pollution import save_measurement
-from .temp_log import parse_temp_log
 
 from .state import get_state
 
@@ -50,10 +49,9 @@ def objektivek():
 
 @app.route('/status')    
 def status():
-    systemdata = get_system_data()
-    date, temp, cpu = parse_temp_log('/home/pi/bin/temp.log')
+    data = get_system_data()
     return render_template('status.html', 
-                           title=u'Státusz', state=state, data=systemdata, date=date, temp=temp, cpu=cpu)
+                           title=u'Státusz', state=state, data=data, date=data['date'], temp=data['temp'], cpu=data['cpu'])
                 
 @app.errorhandler(404)
 def page_not_found(e):
